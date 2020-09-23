@@ -1,6 +1,7 @@
 'use strict';
 
 const MINE = '💣';
+const FLAG = '🚩';
 
 var gGame = {
     isOn: false,
@@ -61,8 +62,11 @@ function setMinesNegsCount(board) {
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[0].length; j++) {
             var cell = board[i][j];
-            var minesCount = countMines(cell);
-            cell.minesAroundCount = minesCount;
+            if (!cell.isMine) {
+                var minesCount = countMines(cell);
+                cell.minesAroundCount = minesCount;
+            }
+
         }
     }
 }
@@ -91,7 +95,7 @@ function renderBoard(board) {
             var cell = board[i][j];
             var className = 'cell cell-' + i + '-' + j;
             var id = '" id="' + cell.id;
-            strHTML += '<td class="' + className + id + '" onclick="cellClicked(this,' + i + ',' + j + ' )"> ';
+            strHTML += '<td class="' + className + id + '" onmousedown="cellClicked(event,' + i + ',' + j + ' )"> ';
             if (cell.minesAroundCount > 0 && cell.isShown) {
                 strHTML += cell.minesAroundCount;
             }
@@ -108,22 +112,34 @@ function renderBoard(board) {
 
 
 // log, elCell?
-function cellClicked(elCell, i, j) {
+function cellClicked(ev, i, j) {
     if (gIsGameOver) return;
     if (!gGame.isOn) {
         gGame.isOn = true;
         runTimer();
     }
-    console.log(elCell);
+
+    var noContext = document.getElementById('noContextMenu');
+    noContext.addEventListener('contextmenu', e => { e.preventDefault(); });
+
     var cell = gBoard[i][j];
-    console.log(cell);
     if (cell.minesAroundCount > 0) {
-        cell.isShown = true;
-        renderCell(cell, cell.minesAroundCount)
+        if (ev.button === 0) {
+            cell.isShown = true;
+            renderCell(cell, cell.minesAroundCount);
+        } else {
+            renderCell(cell, FLAG);
+        }
+
     } else if (cell.isMine) {
-        cell.isShown = true;
-        renderCell(cell, MINE);
-        gameOver();
+        if (ev.button === 0) {
+            cell.isShown = true;
+            renderCell(cell, MINE);
+            gameOver();
+        } else {
+            renderCell(cell, FLAG)
+        }
+
     }
 }
 
