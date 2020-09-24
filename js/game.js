@@ -133,7 +133,8 @@ function cellClicked(elCell, i, j) {
         createMine(cell);
         runTimer();
     }
-    if (gHint.isClicked && !cell.isShown) {
+    if (cell.isShown) return;
+    if (gHint.isClicked) {
         revealHint(cell);
         return;
     }
