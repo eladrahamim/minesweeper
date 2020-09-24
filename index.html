@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <h2>Hello World</h2>
-    <div class='timer'>00</div>
+
+<body onload="initGame(gBeginnerLevel)">
+    <h1>minsweeper</h1>
+    <button onclick="initGame(gBeginnerLevel)">Begginer</button>
+    <button onclick="initGame(gMediumeLevel)">Mediume</button>
+    <button onclick="initGame(gExpertLevel)">Expert</button>
+    <div class="timer">Time:00</div>
+    <div>
+        <button class="hint1" onclick="hintClicked(this)">🤫</button>
+        <button class="hint2" onclick="hintClicked(this)">🤫</button>
+        <button class="hint3" onclick="hintClicked(this)">🤫</button>
+    </div>
+    <h2 class="win">YOU WIN</h2>
+    <h2 class="gameover">GAME OVER</h2>
+    <div class="lives">LIVES 3</div>
+    <button class="restart" onclick="restart()">😃</button>
     <table>
         <tbody class="board" id="noContextMenu"></tbody>
     </table>
+    <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
 </body>
+
 </html>
