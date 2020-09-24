@@ -138,6 +138,7 @@ function cellClicked(elCell, i, j) {
         revealHint(cell);
         return;
     }
+    elCell.style.backgroundColor = 'bisque';
     if (cell.minesAroundCount > 0) {
         cell.isShown = true;
         gGame.shownCount++;
