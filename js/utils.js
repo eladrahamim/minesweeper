@@ -7,7 +7,7 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             var cell = board[i][j];
             var className = 'cell cell-' + i + '-' + j;
-            strHTML += '<td class="' + className + '" onclick="cellClicked(this,' + i + ',' + j + ' )" oncontextmenu="cellMarked(this,' + i + ',' + j + ')"> ';
+            strHTML += '<td class="' + className + '" id="' + cell.id + '" onclick="cellClicked(this,' + i + ',' + j + ' )" oncontextmenu="cellMarked(this,' + i + ',' + j + ')"> ';
             if (!cell.isMine && cell.isShown && !cell.isMarked) {
                 strHTML += cell.minesAroundCount;
             }

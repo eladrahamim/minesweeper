@@ -10,18 +10,20 @@
 
 <body onload="initGame(gBeginnerLevel)">
     <h1>minsweeper</h1>
-    <button onclick="initGame(gBeginnerLevel)">Begginer</button>
-    <button onclick="initGame(gMediumeLevel)">Mediume</button>
-    <button onclick="initGame(gExpertLevel)">Expert</button>
-    <div class="timer">Time:00</div>
     <div>
+        <button class="levels" onclick="initGame(gBeginnerLevel)">Begginer</button>
+        <button class="levels" onclick="initGame(gMediumeLevel)">Mediume</button>
+        <button class="levels" onclick="initGame(gExpertLevel)">Expert</button>
+    </div>
+    <div class="timer">00</div>
+    <div class="hint">
         <button class="hint1" onclick="hintClicked(this)">🤫</button>
         <button class="hint2" onclick="hintClicked(this)">🤫</button>
         <button class="hint3" onclick="hintClicked(this)">🤫</button>
     </div>
     <h2 class="win">YOU WIN</h2>
     <h2 class="gameover">GAME OVER</h2>
-    <div class="lives">LIVES 3</div>
+    <div class="lives">LIVES</div>
     <button class="restart" onclick="restart()">😃</button>
     <table>
         <tbody class="board" id="noContextMenu"></tbody>
