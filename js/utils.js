@@ -8,15 +8,9 @@ function renderBoard(board) {
             var cell = board[i][j];
             var className = 'cell cell-' + i + '-' + j;
             strHTML += '<td class="' + className + '" id="' + cell.id + '" onclick="cellClicked(this,' + i + ',' + j + ' )" oncontextmenu="cellMarked(this,' + i + ',' + j + ')"> ';
-            if (!cell.isMine && cell.isShown && !cell.isMarked) {
-                strHTML += cell.minesAroundCount;
-            }
-            if (cell.isMine && cell.isShown && !cell.isMarked) {
-                strHTML += MINE;
-            }
-            if (cell.isMarked) {
-                strHTML += FLAG;
-            }
+            // if (cell.isMarked) strHTML += FLAG;
+            // if (cell.isMine && cell.isShown && !cell.isMarked) strHTML += MINE;
+            // if (!cell.isMine && cell.minesAroundCount > 0 && cell.isShown && !cell.isMarked) strHTML += cell.minesAroundCount;
             strHTML += '</td>';
         }
         strHTML += '</tr>';

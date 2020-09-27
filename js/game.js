@@ -150,6 +150,7 @@ function cellClicked(elCell, i, j) {
         renderCell(cell, cell.minesAroundCount);
     } else if (cell.isMine) {
         cell.isShown = true;
+        elCell.style.backgroundColor = 'red';
         gLives--;
         renderCell(cell, MINE);
         var lives = setLives();
@@ -172,13 +173,14 @@ function cellMarked(elCell, i, j) {
     var noContext = document.getElementById('noContextMenu');
     noContext.addEventListener('contextmenu', function (event) { event.preventDefault(); });
     if (cell.isMine) {
+        elCell.style.backgroundColor = 'rgb(255, 190, 110)';
         gGame.markedCount++;
     } else if (cell.isShown) return;
     renderCell(cell, FLAG);
     cell.isMarked = true;
     checkIfWin();
 }
-// last move
+
 function expandShown(cell) {
     for (var i = cell.i - 1; i <= cell.i + 1; i++) {
         if (i < 0 || i === gBoard.length) continue;
@@ -201,11 +203,14 @@ function expandShown(cell) {
 }
 
 function revealHint(cell) {
+    var cells = [];
     for (var i = cell.i - 1; i <= cell.i + 1; i++) {
         if (i < 0 || i === gBoard.length) continue;
         for (var j = cell.j - 1; j <= cell.j + 1; j++) {
             if (j < 0 || j === gBoard[0].length) continue;
             var currCell = gBoard[i][j];
+            if (currCell.isShown) continue;
+            cells.push(currCell);
             if (currCell.isMine) {
                 renderCell(currCell, MINE);
             } else {
@@ -215,11 +220,15 @@ function revealHint(cell) {
         }
     }
     gHint.isClicked = false;
-    setTimeout(removeHint, 1000);
+    setTimeout(function () { removeHint(cells); }, 1000);
 }
 
-function removeHint() {
-    renderBoard(gBoard);
+function removeHint(cells) {
+    // renderBoard(gBoard);
+    for (var i = 0; i < cells.length; i++) {
+        if (cells[i].isMarked) renderCell(cells[i],FLAG);
+        else renderCell(cells[i], "");
+    }
     var elBtn = gHint.elBtn
     elBtn.style.display = 'none';
 }
