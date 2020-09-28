@@ -251,7 +251,10 @@ function checkIfWin() {
 function checkGameOver() {
     if (gLives === 0) {
         for (var i = 0; i < gMines.length; i++) {
-            renderCell(gMines[i], MINE);
+            var mineCell = gMines[i];
+            var elCell = document.querySelector('.cell-' + mineCell.i + '-' + mineCell.j)
+            elCell.style.backgroundColor = 'red';
+            renderCell(mineCell, MINE);
         }
         renderElement('.restart', DAD);
         var elGreet = document.querySelector('.gameover');
